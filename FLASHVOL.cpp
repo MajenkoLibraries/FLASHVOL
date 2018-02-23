@@ -48,9 +48,7 @@ DRESULT FLASHVOL::disk_read(
     uint32_t toRead  = count * CBSECTOR;
     uint8_t *vol8 = (uint8_t *)_vol;
 
-    uint32_t *buff32 = (uint32_t *)buff;
-
-    for (int i = 0; i < toRead; i++) {
+    for (uint32_t i = 0; i < toRead; i++) {
         buff[i] = vol8[offset + i];
     }
 
@@ -85,7 +83,7 @@ DRESULT FLASHVOL::disk_write (
     const uint32_t *pageStart = &_vol[offset & ~(_EEPROM_PAGE_SIZE-1)];
     Flash.loadPage((void *)pageStart);
 
-    for (int i = 0; i < toWrite; i++) {
+    for (uint32_t i = 0; i < toWrite; i++) {
         const uint32_t *ps = &_vol[(offset + i) & ~(_EEPROM_PAGE_SIZE-1)];
         if (ps != pageStart) {
             Flash.savePage();
